@@ -51,8 +51,23 @@ previsores = base.iloc[:, 1:4].values
 #obtendo um DataFrame de atributo classe
 classe = base.iloc[:, 4].values
 
+#realizando tratamento dos dados faltantes
 from sklearn.preprocessing import Imputer
-imputer = Imputer()
+imputer = Imputer(missing_values='NaN', strategy='mean', axis=0)
+imputer = imputer.fit(previsores[:,0:3])
+
+previsores[:,0:3] = imputer.transform(previsores[:,0:3])
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------Escalonamento de dados-------------------------------------------------------------------------
+
+#2 formas de escalonamento
+#a) x = x - média(x) / desvioPadrao(x) -- Padronização (Standardisation)
+#b) x = x - minimo(x) / maximo(x) - minimo(x) --Normalização (Normalization)
+
+#importando biblioteca para cálculo de mudança de escala utilizando método de padronização 
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
 
 
 
