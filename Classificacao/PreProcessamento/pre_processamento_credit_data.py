@@ -52,6 +52,7 @@ previsores = base.iloc[:, 1:4].values
 classe = base.iloc[:, 4].values
 
 from sklearn.preprocessing import Imputer
-Imputer = Imputer()
+imputer = Imputer()
 
-#Continua------------------------------------------------------------------------------------------------------
+
+
