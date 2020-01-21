@@ -31,11 +31,18 @@ previsores[:,8] = labelencoder_previsores.fit_transform(previsores[:,8]) #raça
 previsores[:,9] = labelencoder_previsores.fit_transform(previsores[:,9]) #sexo
 previsores[:,13] = labelencoder_previsores.fit_transform(previsores[:,13]) #país de origem
 
-#convertendo todos os valores das variáveis categóricas em numéricas (0 ou 1) usando one hot encoder
+#convertendo todos os valores das variáveis categóricas em numéricas (0 ou 1 - variáveis dummy) usando one hot encoder
 onehotenconder = OneHotEncoder(categorical_features=[1,3,5,6,7,8,9,13])
 previsores = onehotenconder.fit_transform(previsores).toarray()
 
 labelencoder_classe = LabelEncoder()
 classe = labelencoder_classe.fit_transform(classe)
 
+#escalanando todos os atributos, independente se todos os valores sejam das variáveis dummy
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
 
+previsores = scaler.fit_transform(previsores)
+
+#o ponto negativo de usar o escalonamento sobre as variáveis dummy é que o algoritmo fica mais complexo de interpretar se algum registro possui ou não o valor
+#é ideal para variáveis que sejam utilizadas no cálculo da distância euclidiana
